@@ -37,24 +37,37 @@ jobs:
     # - run: npm test
     - run: npm install -g npm-check-updates
     - run: ncu -u
-    # - name: Commit changes
-    #   run: |
-    #     git config --global user.name '${{ github.repository_owner }}'
-    #     git config --global user.email '${{ github.repository_owner }}@users.noreply.github.com'
-    #     git commit -m "npm updates"
-    #     git push
-    - name: Create Pull Request
-      id: cpr
-      # if: ${{ success() }}
-      uses: peter-evans/create-pull-request@v3
-      with:
-        token: ${{ secrets.GITHUB_TOKEN }}
-        commit-message: npm updates
-        title: 'npm updates'
-        #labels: report, automated pr
-        base: master
-        # delete-branch: true
-    - name: Check Pull Request Output
+    - name: Commit changes
+      if: ${{ success() }}
       run: |
-        echo "Pull Request Number - ${{ steps.cpr.outputs.pull-request-number }}"
-        echo "Pull Request URL - ${{ steps.cpr.outputs.pull-request-url }}"
+        git config --global user.name '${{ github.repository_owner }}'
+        git config --global user.email '${{ github.repository_owner }}@users.noreply.github.com'
+        git commit -m "npm updates"
+        git push
+    - name: Create Pull Request
+      if: ${{ success() }}
+      id: cpr
+    #   uses: peter-evans/create-pull-request@v3
+    #   with:
+    #     token: ${{ secrets.GITHUB_TOKEN }}
+    #     commit-message: npm updates
+    #     title: 'npm updates'
+    #     #labels: report, automated pr
+    #     base: master
+    #     # delete-branch: true
+    # - name: Check Pull Request Output
+    #   run: |
+    #     echo "Pull Request Number - ${{ steps.cpr.outputs.pull-request-number }}"
+    #     echo "Pull Request URL - ${{ steps.cpr.outputs.pull-request-url }}"
+      uses: repo-sync/pull-request@v2
+      with:
+        destination_branch: "master"
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+    - name: Pull Request Output
+      if: ${{ success() }}
+      run: echo ${{steps.cpr.outputs.pr_url}}
+      run: echo ${{steps.cpr.outputs.pr_number}}
+    - name: Pull Request Output2
+      if: ${{ steps.cpr.outputs.pr_number > 0 && success() }}
+      run: echo ${{steps.cpr.outputs.pr_url}}
+      run: echo ${{steps.cpr.outputs.pr_number}}
