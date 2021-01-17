@@ -65,9 +65,8 @@ jobs:
         github_token: ${{ secrets.GITHUB_TOKEN }}
     - name: Pull Request Output
       if: ${{ success() }}
-      run: echo ${{steps.cpr.outputs.pr_url}}
-      run: echo ${{steps.cpr.outputs.pr_number}}
+        echo ${{steps.cpr.outputs.pr_url}}
+        echo ${{steps.cpr.outputs.pr_number}}
     - name: Pull Request Output2
       if: ${{ steps.cpr.outputs.pr_number > 0 && success() }}
-      run: echo ${{steps.cpr.outputs.pr_url}}
       run: echo ${{steps.cpr.outputs.pr_number}}
