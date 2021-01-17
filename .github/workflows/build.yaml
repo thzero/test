@@ -37,21 +37,23 @@ jobs:
     # - run: npm test
     - run: npm install -g npm-check-updates
     - run: ncu -u
-    - name: Commit report
-      run: |
-        git config --global user.name '${{ github.repository_owner }}'
-        git config --global user.email '${{ github.repository_owner }}@users.noreply.github.com'
-        git commit -m "npm updates"
-        git push
-    # - name: Create Pull Request
-    #   uses: peter-evans/create-pull-request@v3
-    #   with:
-    #     token: ${{ secrets.GITHUB_TOKEN }}
-    #     commit-message: npm updates
-    #     title: 'npm updates'
-    #     #labels: report, automated pr
-    #     delete-branch: true
-    # - name: Check outputs
+    # - name: Commit changes
     #   run: |
-    #     echo "Pull Request Number - ${{ steps.cpr.outputs.pull-request-number }}"
-    #     echo "Pull Request URL - ${{ steps.cpr.outputs.pull-request-url }}"
+    #     git config --global user.name '${{ github.repository_owner }}'
+    #     git config --global user.email '${{ github.repository_owner }}@users.noreply.github.com'
+    #     git commit -m "npm updates"
+    #     git push
+    - name: Create Pull Request
+      # if: ${{ success() }}
+      uses: peter-evans/create-pull-request@v3
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        commit-message: npm updates
+        title: 'npm updates'
+        #labels: report, automated pr
+        base: master
+        # delete-branch: true
+    - name: Check outputs
+      run: |
+        echo "Pull Request Number - ${{ steps.cpr.outputs.pull-request-number }}"
+        echo "Pull Request URL - ${{ steps.cpr.outputs.pull-request-url }}"
