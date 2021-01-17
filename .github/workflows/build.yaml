@@ -66,8 +66,11 @@ jobs:
         github_token: ${{ secrets.GITHUB_TOKEN }}
     - name: Pull Request Output
       run: |
-        echo ${{steps.cpr.outputs.pr_url}}
-        echo ${{steps.cpr.outputs.pr_number}}
-    - name: Pull Request Output2
+        echo ${{ steps.cpr.outputs.pr_url }}
+        echo ${{ steps.cpr.outputs.pr_number }}
+    - name: merge a pull request
       if: ${{ steps.cpr.outputs.pr_number > 0 && success() }}
-      run: echo ${{steps.cpr.outputs.pr_number}}
+      uses: sudo-bot/action-pull-request-merge@v1.1.1
+      with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          number: ${{ steps.cpr.outputs.pr_number }}
