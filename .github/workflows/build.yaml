@@ -42,6 +42,7 @@ jobs:
       run: |
         git config --global user.name '${{ github.repository_owner }}'
         git config --global user.email '${{ github.repository_owner }}@users.noreply.github.com'
+        git add .
         git commit -m "npm updates"
         git push
     - name: Create Pull Request
