@@ -2,7 +2,7 @@ name: Build CI
 
 on:
     repository_dispatch:
-      #types: [ npm, version ]#\
+     # types: [ npm, version ]
 
 jobs:
   build:
@@ -19,19 +19,6 @@ jobs:
     - name: Event Action
       run: |
         echo ${{ github.event.action }}
-    - name: Label NPM
-      if: github.event.action == 'npm'
-      uses: allenevans/set-env@v2.0.0
-      with:
-        LABEL: 'npm updates'
-    - name: Label Override
-      if: github.event.client_payload.label
-      uses: allenevans/set-env@v2.0.0
-      with:
-        LABEL: ${{ github.event.client_payload.label }}
-    - name: Label Output
-      run: |
-        echo ${{ env.LABEL }}
     - uses: actions/checkout@v2
       with:
         ref: dev
@@ -50,9 +37,10 @@ jobs:
       run: ncu -u
       if: github.event.action == 'npm'
     - name: Commit changes
+      if: github.event.action == 'npm' && ${{ success() }}
       run: |
         git config --global user.name '${{ github.repository_owner }}'
         git config --global user.email '${{ github.repository_owner }}@users.noreply.github.com'
         git add .
-        git commit -m "${{ env.LABEL }}"
+        git commit -m "npm updates"
         git push
