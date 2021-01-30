@@ -55,4 +55,4 @@ jobs:
       if: github.event.action == 'npm'
     - name: Package Output
       run: |
-        echo ${{ LABEL }}
+        echo ${LABEL}
