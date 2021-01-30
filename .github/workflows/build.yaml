@@ -25,3 +25,13 @@ jobs:
     - name: Package Output
       run: |
         cat package.json
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ matrix.node-version }}
+        registry-url: 'https://registry.npmjs.org'
+    - run: npm install -g npm-check-updates
+      if: github.event.action == 'npm'
+    - run: ncu -u
+      if: github.event.action == 'npm'
+
