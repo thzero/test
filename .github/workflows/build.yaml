@@ -30,20 +30,20 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         registry-url: 'https://registry.npmjs.org'
-    - name: NCU Install
-      run: npm install -g npm-check-updates
-      if: github.event.action == 'npm'
-    - name: NCU Check
-      run: ncu -u
-      if: github.event.action == 'npm'
-    - name: Commit changes
-      if: github.event.action == 'npm' && ${{ success() }}
-      run: |
-        git config --global user.name '${{ github.repository_owner }}'
-        git config --global user.email '${{ github.repository_owner }}@users.noreply.github.com'
-        git add .
-        git commit -m "npm updates"
-        git push
+    # - name: NCU Install
+    #   run: npm install -g npm-check-updates
+    #   if: github.event.action == 'npm'
+    # - name: NCU Check
+    #   run: ncu -u
+    #   if: github.event.action == 'npm'
+    # - name: Commit changes
+    #   if: github.event.action == 'npm' && ${{ success() }}
+    #   run: |
+    #     git config --global user.name '${{ github.repository_owner }}'
+    #     git config --global user.email '${{ github.repository_owner }}@users.noreply.github.com'
+    #     git add .
+    #     git commit -m "npm updates"
+    #     git push
     - uses: repo-sync/pull-request@v2
       with:
         source_branch: dev
