@@ -16,7 +16,7 @@ jobs:
         node-version: [13.x]
 
     steps:
-    - name: Package Output
+    - name: Event Action
       run: |
         echo ${{ github.event.action }}
     - name: Label
@@ -55,4 +55,4 @@ jobs:
       if: github.event.action == 'npm'
     - name: Label Output
       run: |
-        echo ${{ LABEL }}
+        echo ${{ env.LABEL }}
