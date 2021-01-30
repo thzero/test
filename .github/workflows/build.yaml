@@ -19,3 +19,9 @@ jobs:
     - name: Package Output
       run: |
         echo ${{ github.event.action}}
+    - uses: actions/checkout@v2
+      with:
+        ref: dev
+    - name: Package Output
+      run: |
+        cat package.json
