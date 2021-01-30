@@ -53,6 +53,6 @@ jobs:
     - name: NCU Check
       run: ncu -u
       if: github.event.action == 'npm'
-    - name: Package Output
+    - name: Label Output
       run: |
-        echo ${LABEL}
+        echo ${{ LABEL }}
