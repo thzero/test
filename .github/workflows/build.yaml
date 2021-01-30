@@ -30,7 +30,7 @@ jobs:
       with:
         LABEL: 'version update'
     - name: Label Override
-      if: github.event.client_payload.label != undefined && github.event.client_payload.label != null && github.event.client_payload.label != ""
+      if: github.event.client_payload.label != null && github.event.client_payload.label != ""
       uses: allenevans/set-env@v2.0.0
       with:
         LABEL: ${{ github.event.client_payload.label }}
