@@ -1,4 +1,3 @@
-
 name: Build CI
 
 on:
@@ -13,10 +12,10 @@ on:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     if: github.actor == github.event.repository.owner.login
+#    if: github.event.action == 'npm'
 
     strategy:
       matrix:
