@@ -77,3 +77,12 @@ jobs:
       with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           number: ${{ steps.cpr.outputs.pr_number }}
+
+    - name: Commit changes
+      if: ${{ success() }}
+      run: |
+        git config --global user.name '${{ github.repository_owner }}'
+        git config --global user.email '${{ github.repository_owner }}@users.noreply.github.com'
+        git add .
+        git commit -m "${{ env.LABEL }}"
+        git push

@@ -19,10 +19,6 @@ jobs:
     - name: Event Action
       run: |
         echo ${{ github.event.action }}
-    - name: Label
-      uses: allenevans/set-env@v2.0.0
-      with:
-        LABEL: ${{ github.event.client_payload.label }}
     - name: Label NPM
       if: github.event.action == 'npm'
       uses: allenevans/set-env@v2.0.0
@@ -33,6 +29,13 @@ jobs:
       uses: allenevans/set-env@v2.0.0
       with:
         LABEL: 'version update'
+    - name: Label Override
+      uses: allenevans/set-env@v2.0.0
+      with:
+        LABEL: ${{ github.event.client_payload.label ? github.event.client_payload.label : env.LABEL }}
+    - name: Label Output
+      run: |
+        echo ${{ env.LABEL }}
     - uses: actions/checkout@v2
       with:
         ref: dev
@@ -53,6 +56,3 @@ jobs:
     - name: NCU Check
       run: ncu -u
       if: github.event.action == 'npm'
-    - name: Label Output
-      run: |
-        echo ${{ env.LABEL }}
