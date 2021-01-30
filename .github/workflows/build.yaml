@@ -30,8 +30,12 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         registry-url: 'https://registry.npmjs.org'
-    - run: npm install -g npm-check-updates
+    - name: NCU Install
+      run: npm install -g npm-check-updates
       if: github.event.action == 'npm'
-    - run: ncu -u
+    - name: NCU Check
+      run: ncu -u
       if: github.event.action == 'npm'
-
+    - name: NCU Check
+      run: ncu -u
+      if: github.event.action == 'npm'
