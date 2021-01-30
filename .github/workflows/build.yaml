@@ -18,7 +18,21 @@ jobs:
     steps:
     - name: Package Output
       run: |
-        echo ${{ github.event.action}}
+        echo ${{ github.event.action }}
+    - name: Label
+      uses: allenevans/set-env@v2.0.0
+      with:
+        LABEL: ${{ github.event.client_payload.label }}
+    - name: Label NPM
+      if: github.event.action == 'npm'
+      uses: allenevans/set-env@v2.0.0
+      with:
+        LABEL: 'npm updates'
+    - name: Label Version
+      if: github.event.action == 'version'
+      uses: allenevans/set-env@v2.0.0
+      with:
+        LABEL: 'version update'
     - uses: actions/checkout@v2
       with:
         ref: dev
@@ -39,3 +53,6 @@ jobs:
     - name: NCU Check
       run: ncu -u
       if: github.event.action == 'npm'
+    - name: Package Output
+      run: |
+        echo ${{ LABEL }}
