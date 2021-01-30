@@ -2,7 +2,6 @@ name: Build CI
 
 on:
     repository_dispatch:
-      types: [ npm, version ]
 
 jobs:
   build:
