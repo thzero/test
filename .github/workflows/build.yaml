@@ -91,12 +91,12 @@ jobs:
       run: |
         echo ${{ steps.cpr.outputs.pr_url }}
         echo ${{ steps.cpr.outputs.pr_number }}
-    # - name: Merge pull request
-    #   if: steps.git-changes.outputs.change == 1 && steps.cpr.outputs.pr_number > 0 && success()
-    #   uses: sudo-bot/action-pull-request-merge@v1.1.1
-    #   with:
-    #       github-token: ${{ secrets.GITHUB_TOKEN }}
-    #       number: ${{ steps.cpr.outputs.pr_number }}
+    - name: Merge pull request
+      if: steps.git-changes.outputs.change == 1 && steps.cpr.outputs.pr_number > 0 && success()
+      uses: sudo-bot/action-pull-request-merge@v1.1.1
+      with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          number: ${{ steps.cpr.outputs.pr_number }}
     - run: npm publish --access public
       if: steps.git-changes.outputs.change == 1 && success()
       env:
