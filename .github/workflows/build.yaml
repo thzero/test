@@ -97,10 +97,10 @@ jobs:
     #   with:
     #       github-token: ${{ secrets.GITHUB_TOKEN }}
     #       number: ${{ steps.cpr.outputs.pr_number }}
-    # - run: npm publish --access public
-    #   if: steps.git-changes.outputs.change == 1 && success()
-    #   env:
-    #     NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+    - run: npm publish --access public
+      if: steps.git-changes.outputs.change == 1 && success()
+      env:
+        NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
     # - name: NCU Install
     #   run: npm install -g npm-check-updates
