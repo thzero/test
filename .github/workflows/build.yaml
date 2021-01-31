@@ -72,6 +72,7 @@ jobs:
         git commit -m "${{ github.event.client_payload.label }}"
         git push
     - name: Pull Request
+      id: pull-request
       if: steps.git-changes.outputs.changed == 1 && success()
       uses: repo-sync/pull-request@v2
       with:
@@ -81,14 +82,14 @@ jobs:
     - name: Pull Request Output
       if: steps.git-changes.outputs.changed == 1 && success()
       run: |
-        echo ${{ steps.cpr.outputs.pr_url }}
-        echo ${{ steps.cpr.outputs.pr_number }}
+        echo ${{ steps.pull-request.outputs.pr_url }}
+        echo ${{ steps.pull-request.outputs.pr_number }}
     - name: Merge pull request
-      if: steps.git-changes.outputs.changed == 1 && steps.cpr.outputs.pr_number > 0 && success()
+      if: steps.git-changes.outputs.changed == 1 && steps.pull-request.outputs.pr_number > 0 && success()
       uses: sudo-bot/action-pull-request-merge@v1.1.1
       with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
-          number: ${{ steps.cpr.outputs.pr_number }}
+          number: ${{ steps.pull-request.outputs.pr_number }}
     - run: npm publish --access public
       if: steps.git-changes.outputs.changed == 1 && success()
       env:
