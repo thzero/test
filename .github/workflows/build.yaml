@@ -65,13 +65,21 @@ jobs:
         git commit -m "npm updates"
         git push
     - name: Git Commit !NPM
-      if: github.event.action != 'npm' && steps.git-changes.outputs.change == 1 && github.event.client_payload.label
+      if: github.event.action != 'npm' && steps.git-changes.outputs.change == 1
       run: |
         git config --global user.name '${{ github.repository_owner }}'
         git config --global user.email '${{ github.repository_owner }}@users.noreply.github.com'
         git add .
-        git commit -m "${{ github.event.client_payload.label }}"
+        git commit -m "npm updates"
         git push
+    # - name: Git Commit !NPM
+    #   if: github.event.action != 'npm' && steps.git-changes.outputs.change == 1 && github.event.client_payload.label
+    #   run: |
+    #     git config --global user.name '${{ github.repository_owner }}'
+    #     git config --global user.email '${{ github.repository_owner }}@users.noreply.github.com'
+    #     git add .
+    #     git commit -m "${{ github.event.client_payload.label }}"
+    #     git push
      - name: Pull Request
       if: steps.git-changes.outputs.change == 1 && success()
       uses: repo-sync/pull-request@v2
