@@ -44,10 +44,10 @@ jobs:
       if: success()
       run: |
         npm install --no-package-lock
-    # - name: Update Package Version
-    #   if: ((github.event.action == 'npm' && steps.ncu-upgrade.outputs.upgraded) || github.event.action == 'version') && success()
-    #   run: |
-    #     npm run cli-update -- --silent
+    - name: Update Package Version
+      if: ((github.event.action == 'npm' && steps.ncu-upgrade.outputs.upgraded) || github.event.action == 'version') && success()
+      run: |
+        npm run cli-update -- --silent
     - name: Git Check
       id: git-changes
       if: success()
