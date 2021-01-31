@@ -53,7 +53,6 @@ jobs:
       if: success()
       uses: UnicornGlobal/has-changes-action@v1.0.11
     - name: Git Check Output
-      if: steps.changes.outputs.changed == 1
       run: |
         echo ${{ steps.git-changes.outputs.changed }}
     - name: Git Commit NPM
