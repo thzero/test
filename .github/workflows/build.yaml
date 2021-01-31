@@ -30,8 +30,12 @@ jobs:
     #   with:
     #     node-version: ${{ matrix.node-version }}
     #     registry-url: 'https://registry.npmjs.org'
-    - name: ncu-upgrade
+    - name: NCU Upgrade Check
+      id: ncu-upgrade
       uses: thzero/ncu-upgrade@v0.6-beta
+    - name: NCU Updated Check Output
+      run: |
+        echo ${{ steps.ncu-upgrade.outputs.upgraded }}
 
     # - name: NCU Install
     #   run: npm install -g npm-check-updates
