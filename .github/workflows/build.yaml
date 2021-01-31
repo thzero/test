@@ -79,6 +79,7 @@ jobs:
         destination_branch: master
         github_token: ${{ secrets.GITHUB_TOKEN }}
     - name: Pull Request Output
+      if: steps.git-changes.outputs.change == 1 && success()
       run: |
         echo ${{ steps.cpr.outputs.pr_url }}
         echo ${{ steps.cpr.outputs.pr_number }}
