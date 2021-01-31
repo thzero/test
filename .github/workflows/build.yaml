@@ -32,7 +32,7 @@ jobs:
     #     registry-url: 'https://registry.npmjs.org'
     - name: NCU Upgrade Check
       id: ncu-upgrade
-      uses: thzero/ncu-upgrade@v0.8-beta
+      uses: thzero/ncu-upgrade@v0.9-beta
     - name: NCU Updated Check Output
       run: |
         echo ${{ steps.ncu-upgrade.outputs.upgraded }}
