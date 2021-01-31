@@ -27,7 +27,6 @@ jobs:
       run: |
         cat package.json
     - name: Initialize Node.js ${{ matrix.node-version }}
-      if: steps.git-changes.outputs.change == 1 && success()
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
