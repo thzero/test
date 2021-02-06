@@ -49,7 +49,7 @@ jobs:
         echo action_is_version? ${{ (github.event.action == 'version') }}
         echo upgrade? ${{ ((github.event.action == 'npm' && steps.ncu-upgrade.outputs.upgraded) || github.event.action == 'version') }}
     - name: what
-      if: (github.event.action == 'npm' && steps.ncu-upgrade.outputs.upgraded)
+      if: (github.event.action == 'npm' && steps.ncu-upgrade.outputs.upgraded == false)
       run: |
         echo 'what'
     - name: huh
