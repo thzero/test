@@ -46,7 +46,7 @@ jobs:
         echo upgrade? ${{ ((github.event.action == 'npm' && steps.ncu-upgrade.outputs.upgraded) || github.event.action == 'version') }}
     # - run: npm install
     - name: Node Dependencies
-      if: success()
+      if: ((github.event.action == 'npm' && steps.ncu-upgrade.outputs.upgraded) || github.event.action == 'version') && success()
       run: |
         npm install --no-package-lock
     - name: Update Package Version
