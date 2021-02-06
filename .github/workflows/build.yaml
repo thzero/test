@@ -39,7 +39,6 @@ jobs:
       if: github.event.action == 'npm'
       run: |
         echo upgraded: ${{ steps.ncu-upgrade.outputs.upgraded }}
-        echo action: ${{ github.event.action }}
         echo npm_and_upgrade? ${{ (github.event.action == 'npm' && steps.ncu-upgrade.outputs.upgraded) }}
     - name: Dependency updates?
       run: |
@@ -50,11 +49,11 @@ jobs:
         echo action_is_version? ${{ (github.event.action == 'version') }}
         echo upgrade? ${{ ((github.event.action == 'npm' && steps.ncu-upgrade.outputs.upgraded) || github.event.action == 'version') }}
     - name: what
-      if: false
+      if: (github.event.action == 'npm' && steps.ncu-upgrade.outputs.upgraded) && success()
       run: |
         echo 'what'
     - name: huh
-      if: true
+      if: (github.event.action == 'version') && success()
       run: |
         echo 'huh'
     - name: Node Dependencies
