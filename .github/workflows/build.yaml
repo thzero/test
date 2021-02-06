@@ -49,19 +49,19 @@ jobs:
         echo action_is_version? ${{ (github.event.action == 'version') }}
         echo upgrade? ${{ ((github.event.action == 'npm' && steps.ncu-upgrade.outputs.upgraded) || github.event.action == 'version') }}
     - name: what
-      if: (github.event.action == 'npm' && steps.ncu-upgrade.outputs.upgraded) && success()
+      if: (github.event.action == 'npm' && steps.ncu-upgrade.outputs.upgraded)
       run: |
         echo 'what'
     - name: huh
-      if: (github.event.action == 'version') && success()
+      if: (github.event.action == 'version')
       run: |
         echo 'huh'
     - name: Node Dependencies
-      if: ((github.event.action == 'npm' && steps.ncu-upgrade.outputs.upgraded) || github.event.action == 'version') && success()
+      if: ((github.event.action == 'npm' && steps.ncu-upgrade.outputs.upgraded) || github.event.action == 'version')
       run: |
         npm install --no-package-lock
     - name: Update Package Version
-      if: ((github.event.action == 'npm' && steps.ncu-upgrade.outputs.upgraded) || github.event.action == 'version') && success()
+      if: ((github.event.action == 'npm' && steps.ncu-upgrade.outputs.upgraded) || github.event.action == 'version')
       run: |
         npm run cli-update -- --silent
     - name: Git Check
