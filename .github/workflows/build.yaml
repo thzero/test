@@ -40,6 +40,7 @@ jobs:
       run: |
         echo upgraded: ${{ steps.ncu-upgrade.outputs.upgraded }}
         echo action: ${{ github.event.action }}
+        echo action_is_npm: ${{ (github.event.action == 'npm') }}
     # - run: npm install
     - name: Node Dependencies
       if: success()
