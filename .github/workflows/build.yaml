@@ -2,7 +2,7 @@ name: Build CI
 
 on:
     repository_dispatch:
-     # types: [ npm, version ]
+      types: [ build_all, build_library ]
 
 jobs:
   build:
@@ -18,8 +18,9 @@ jobs:
     steps:
     - name: Event Input
       run: |
-        echo action: ${{ github.event.action }}
-        echo action2: ${{ github.event.client_payload.label.action }}
+        echo event: ${{ github.event }}
+        echo type: ${{ github.event.action }}
+        echo action: ${{ github.event.client_payload.label.action }}
         echo label: ${{ github.event.client_payload.label.label }}
         echo library: ${{ github.event.client_payload.label.library }}
     - uses: actions/checkout@v2
@@ -134,11 +135,11 @@ jobs:
     #     echo ${{ steps.cpr.outputs.pr_url }}
     #     echo ${{ steps.cpr.outputs.pr_number }}
     - name: Repository Dispatch - Build Base
-        if: github.event.inputs.library == null || github.event.inputs.library == ''
+        if: github.event.action == 'build_all'
         uses: peter-evans/repository-dispatch@v1
         with:
           token: ${{ secrets.ACCESS_TOKEN }}
           repository: thzero/library_build
-          event-type: 'build_base'
-          client-payload: '{ "action": "${{ github.event.client_payload.action }}", "label": "${{ github.event.client_payload.label }}", "library": "${{ github.event.inputs.library }}" }'
+          event-type: ${{ github.event.action }}
+          client-payload: '{ "action": "${{ github.event.client_payload.action }}", "label": "${{ github.event.client_payload.label }}" }'
 
