@@ -18,7 +18,6 @@ jobs:
     steps:
     - name: Event Input
       run: |
-        echo event: ${{ JSON.stringfy(github.event) }}
         echo event-type: ${{ github.event.action }}
         echo action: ${{ github.event.client_payload.action }}
         echo label: ${{ github.event.client_payload.label }}
