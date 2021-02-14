@@ -43,6 +43,7 @@ jobs:
         echo upgrades: ${{ steps.ncu-upgrade.outputs.upgrades }}
         echo action: ${{ github.event.action }}
         echo action_is_npm? ${{ (github.event.client_payload.action == 'npm') }}
+        echo upgrade? ${{ (steps.ncu-upgrade.outputs.upgraded == true) }}
         echo npm_and_upgrade? ${{ (github.event.client_payload.action == 'npm' && steps.ncu-upgrade.outputs.upgraded == true) }}
         echo action_is_version? ${{ (github.event.action == 'version') }}
         echo upgrade? ${{ ((github.event.client_payload.action == 'npm' && steps.ncu-upgrade.outputs.upgraded == true) || github.event.action == 'version') }}
