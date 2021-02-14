@@ -39,6 +39,7 @@ jobs:
       uses: thzero/ncu-upgrade@v0.21-beta
     - name: NCU Updated Check Output
       run: |
+        echo success: ${{ success() }}
         echo upgraded: ${{ steps.ncu-upgrade.outputs.upgraded }}
         echo upgrades: ${{ steps.ncu-upgrade.outputs.upgrades }}
         echo action: ${{ github.event.action }}
