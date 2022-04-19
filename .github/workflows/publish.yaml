@@ -35,7 +35,7 @@ jobs:
     - name: Node Dependencies
       run: |
         npm install --no-package-lock
-    - name: Update Package Version
+    - name: Package Output
       run: |
         cat package.json
     - name: Initialize Node.js ${{ matrix.node-version }}
@@ -46,7 +46,7 @@ jobs:
     - name: Update Package Version
       run: |
         # npm run cli-update -- --silent
-        library-cli --updateversion --pi
+        library-cli --updateversion --pi --silent
     - name: Check for uncommitted changes
       id: git-changes
       if: success()
