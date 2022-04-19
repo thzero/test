@@ -29,7 +29,7 @@ jobs:
     - uses: actions/checkout@v2
       with:
         ref: dev
-    - name: Node Dependencies
+    - name: Node Dependencies for CLI
       run: |
         npm install -g @thzero/library_cli
     - name: Node Dependencies
